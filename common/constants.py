@@ -2,6 +2,8 @@
 
 CONTROLLER_ADDR = ("127.0.0.1", 9001)
 
+CONTROLLER_STATE_FILE = "storage/controller_state.json"
+
 NODES = {
     "AVIONICS": ("127.0.0.1", 9000),
     "PAYLOAD": ("127.0.0.1", 9002),
