@@ -1,10 +1,11 @@
 # common/packet.py
 import json
 
-def build_packet(pkt_type, seq, payload):
+def build_packet(pkt_type, seq, target, payload):
     return json.dumps({
         "type": pkt_type,
         "seq": seq,
+        "target": target,
         "payload": payload
     }).encode()
 

@@ -1,7 +1,5 @@
-# controller/controller.py
 import socket
-
-from common.constants import CONTROLLER_ADDR, NODE_ADDR
+from common.constants import CONTROLLER_ADDR, NODES
 from common.packet import build_packet
 
 def main():
@@ -9,16 +7,29 @@ def main():
     sock.bind(CONTROLLER_ADDR)
 
     send_seq = 0
+
     print("[CTRL] Controller ready")
+    print("Available nodes:", list(NODES.keys()))
 
     while True:
-        cmd = input("> send ").strip()
+        raw = input("> ").strip().split()
+
+        if len(raw) < 2:
+            print("Usage: <NODE> <COMMAND>")
+            continue
+
+        node_name = raw[0].upper()
+        command = raw[1]
+
+        if node_name not in NODES:
+            print("Unknown node")
+            continue
+
         send_seq += 1
+        pkt = build_packet("COMMAND", send_seq, node_name, command)
 
-        pkt = build_packet("COMMAND", send_seq, cmd)
-        sock.sendto(pkt, NODE_ADDR)
-
-        print(f"[TX] seq={send_seq}, payload={cmd}")
+        sock.sendto(pkt, NODES[node_name])
+        print(f"[TX] seq={send_seq} → {node_name}: {command}")
 
 if __name__ == "__main__":
     main()

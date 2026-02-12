@@ -1,8 +1,13 @@
 # common/constants.py
 
-NODE_ADDR = ("127.0.0.1", 9000)
 CONTROLLER_ADDR = ("127.0.0.1", 9001)
 
-STATE_FILE = "storage/node_state.json"
+NODES = {
+    "AVIONICS": ("127.0.0.1", 9000),
+    "PAYLOAD": ("127.0.0.1", 9002),
+    "RECOVERY": ("127.0.0.1", 9003),
+    "PROPULSION": ("127.0.0.1", 9004),
+}
 
+STATE_DIR = "storage/"
 INITIAL_STATE = "SAFE"
